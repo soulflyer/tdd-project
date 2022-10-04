@@ -1,22 +1,12 @@
 (ns tdd-project.spiral)
 
-
-(defn spiral
-  [n]
-  (if (= 1 n)
-    [[1]]
-    [(range 1 (inc n))
-     (reverse (range (+ n (- n 1)) (- (* 3 n) 1)))]))
-
-
 (defn modify-center
   [m]
   (let [n (count (first m))
-        diff (- (* (+ n 2) (+ n 2)) (* n n))]
+        diff (* 4 (inc n))]
     (map (fn [row]
            (map #(+ % diff) row))
          m)))
-
 
 (defn prepare-wrapping
   [n]
@@ -30,7 +20,6 @@
      :left-column (reverse
                     (range (dec (* 3 next-n))
                            (- (* 4 next-n) 3)))}))
-
 
 (defn wrap-spiral
   [m {:keys [first-row
@@ -47,12 +36,17 @@
       right-column)
     [last-row]))
 
-
 (defn expand-spiral
   [m]
-  (let [n (count (first m))]
-    (if (= n 0)
-      [[1]]
-      (let [modified-center (modify-center m)
-            wrapping-components (prepare-wrapping n)]
-        (wrap-spiral modified-center wrapping-components)))))
+  (let [n (count (first m))
+        modified-center (modify-center m)
+        wrapping-components (prepare-wrapping n)]
+    (wrap-spiral modified-center wrapping-components)))
+
+(defn spiral
+  ([n]
+   (spiral (dec n) (if (odd? n) [[1]] [])))
+  ([n m]
+   (if (pos? n)
+     (recur (- n 2) (expand-spiral m))
+     m)))
