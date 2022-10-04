@@ -1,0 +1,1 @@
+["^ ","~$spiral",["^ ","~:row",3,"~:col",1,"~:fixed-arities",["~#set",[1]],"~:name","^0","~:ns","~$tdd-project.spiral","~:top-ns","^7","~:arities",["^ ","~i1",["^ ","~:ret",["^4",["~:vector"]]]]],"~:filename","/Users/iain/Code/Clojure/tdd-project/src/tdd_project/spiral.clj"]
